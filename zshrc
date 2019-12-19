@@ -10,7 +10,8 @@ plugins=(
 )
 
 # load zsh
-export ZSH="/Users/justin/.oh-my-zsh"
+export MY_USER=$(whoami)
+export ZSH="/Users/$MY_USER/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # nvm versions directory setup
