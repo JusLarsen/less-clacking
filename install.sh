@@ -93,6 +93,10 @@ defaults write com.apple.dock autohide-time-modifier -float 0.5
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
 
+# Disable .DS_Store on mounted network drives
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+
+
 for app in "Dock" "Finder"; do
   killall "${app}" > /dev/null 2>&1
 done
