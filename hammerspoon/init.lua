@@ -170,3 +170,7 @@ modalHotkey(']', function(window, frame, screen)
     window:moveOneScreenEast()
   end
 end)
+
+hs.hotkey.bind({"cmd", "shift"}, "l", function()
+  hs.caffeinate.lockScreen()
+end)
