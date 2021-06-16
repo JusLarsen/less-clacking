@@ -1,9 +1,11 @@
 [user]
-	email = justin.larsen@gmail.com
-	name = Justin Larsen
+	email = jlarsen@traegergrills.com
+	name = J. Alan Larsen
 
 [core]
     editor = vim
     excludesfile = ~/.gitignore
 [push]
     default = simple
+[init]
+	defaultBranch = development

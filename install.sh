@@ -20,6 +20,7 @@ brew install elixir
 brew install gcc
 brew install git
 brew install nvm
+brew install poetry
 brew install pyenv
 brew install pyenv-virtualenv
 brew install pipenv
@@ -34,21 +35,21 @@ brew install imagemagick
 brew install postgresql
 ### Install applications with brew cask ###
 
-brew cask install dropbox
-brew cask install docker
-brew cask install sublime-text
-brew cask install spotify
-brew cask install firefox
-brew cask install slack
-brew cask install vlc
-brew cask install postman
-brew cask install postico
-brew cask install base
-brew cask install discord
-brew cask install visual-studio-code
-brew cask install font-hack-nerd-font
-brew cask install iterm2
-brew cask install hammerspoon
+brew install dropbox --cask
+brew install docker --cask
+brew install sublime-text --cask
+brew install spotify --cask
+brew install firefox --cask
+brew install slack --cask
+brew install vlc --cask
+brew install postman --cask
+brew install postico --cask
+brew install base --cask
+brew install discord --cask
+brew install visual-studio-code --cask
+brew install font-hack-nerd-font --cask
+brew install iterm2 --cask
+brew install hammerspoon --cask
 ### macOS specific settings ###
 
 # Finder: show all filename extensions
