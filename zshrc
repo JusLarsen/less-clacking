@@ -15,12 +15,6 @@ export MY_USER=$(whoami)
 export ZSH="/Users/$MY_USER/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
-# nvm versions directory setup
-export NVM_DIR="$HOME/.nvm"
-mkdir -p $NVM_DIR
-# Execute nvm shell script.
-. "/opt/homebrew/opt/nvm/nvm.sh"
-
 # Custom complication flags for brew installs of zlib and sqlite
 export LDFLAGS="-L/usr/local/opt/zlib/lib"
 export CPPFLAGS="-I/usr/local/opt/zlib/include"
@@ -36,5 +30,3 @@ unalias grv
 . $(brew --prefix asdf)/asdf.sh
 
 export PATH="$HOME/.poetry/bin:$PATH"
-
-eval "$(pyenv init -)"
