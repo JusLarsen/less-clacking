@@ -1,56 +1,19 @@
 #!/bin/bash
+# Author: @juslarsen
+# Description: This is my Mac OS setup script. Largely inspired by/stolen from @rowofpixels.
+
 script_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
-# Mac OS install script largely stolen from @rowofpixels.
 
-### Tap brew casks as needed ###
-brew tap thoughtbot/formulae
-brew tap sambadevi/powerlevel9k
-brew tap homebrew/cask-fonts
-### Update brew ###
-brew update
+# Install homebrew if it's not already installed
+if ! command -v brew &> /dev/null
+then
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    exit
+fi
 
-### Install brew packages ###
-brew install autojump
-brew install asdf
-brew install awscli
-brew install cmake
-brew install erlang
-brew install elixir
-brew install gcc
-brew install git
-brew install nvm
-brew install poetry
-brew install pyenv
-brew install pyenv-virtualenv
-brew install pipenv
-brew install rcm
-brew install terraform
-brew install tig
-brew install vim
-brew install wget
-brew install zsh zsh-completions
-brew install powerlevel9k
-brew install imagemagick
-brew install postgresql
-### Install applications with brew cask ###
-
-brew install dropbox --cask
-brew install docker --cask
-brew install sublime-text --cask
-brew install spotify --cask
-brew install firefox --cask
-brew install slack --cask
-brew install vlc --cask
-brew install postman --cask
-brew install postico --cask
-brew install base --cask
-brew install discord --cask
-brew install visual-studio-code --cask
-brew install font-hack-nerd-font --cask
-brew install iterm2 --cask
-brew install hammerspoon --cask
-### macOS specific settings ###
+# Install tools from Brewfile
+brew bundle install
 
 # Finder: show all filename extensions
 # http://www.defaults-write.com/display-the-file-extensions-in-finder/
@@ -97,19 +60,14 @@ defaults write com.apple.dock autohide -bool true
 # Disable .DS_Store on mounted network drives
 defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
-
+# Restart the dock and finder to apply changes
 for app in "Dock" "Finder"; do
   killall "${app}" > /dev/null 2>&1
 done
 
 ### Terminal setup ###
 if [ ! -d "$HOME/.oh-my-zsh/" ] ; then
-    bash <(curl -s https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-fi
-
-# setup theme
-if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel9k" ] ; then
-    git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
+    bash -c "$(curl -s https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
 ### vim setup ###
@@ -144,3 +102,4 @@ rcup zprofile
 rcup vimrc
 rcup zshrc
 rcup hammerspoon
+rcup p10k.zsh

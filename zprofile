@@ -1,4 +1,3 @@
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
@@ -48,17 +47,24 @@ function extract()      # Handy Extract Program
 }
 
 # exports
-export ANDROID_PATH=/Users/justin/Library/Android/sdk
 export CLICOLOR=1
+
 # fallback libraries for compiling caffe with cuda
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/cuda/lib:$HOME/anaconda/lib:/usr/local/lib:/usr/lib
+
+# Custom compilation flags for brew installs of zlib and sqlite
+export LDFLAGS="-L/usr/local/opt/zlib/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include"
+
 export GREP_OPTIONS='--color=auto'
+
 export PATH=/usr/local/sbin:$PATH
 
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 eval $(/opt/homebrew/bin/brew shellenv)
 
+# Load pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
