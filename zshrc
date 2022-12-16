@@ -23,16 +23,12 @@ source $ZSH/oh-my-zsh.sh
 unalias grv # git plugin and grv conflict
 . $(brew --prefix asdf)/libexec/asdf.sh 
 
-# Custom complication flags for brew installs of zlib and sqlite
-export LDFLAGS="-L/usr/local/opt/zlib/lib"
-export CPPFLAGS="-I/usr/local/opt/zlib/include"
-
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
 
 source $(brew --prefix romkatv/powerlevel10k/powerlevel10k)/powerlevel10k.zsh-theme
 
