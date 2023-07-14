@@ -13,7 +13,7 @@ then
 fi
 
 # Install tools from Brewfile
-brew bundle install
+brew bundle install --file=~/.dotfiles/Brewfile
 
 # Finder: show all filename extensions
 # http://www.defaults-write.com/display-the-file-extensions-in-finder/
