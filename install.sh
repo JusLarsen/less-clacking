@@ -70,6 +70,25 @@ if [ ! -d "$HOME/.oh-my-zsh/" ] ; then
     bash -c "$(curl -s https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
+### Directory Setup for Multi-Identity Commits ###
+### Devevelopment directory ###
+if [ ! -d "$HOME/development" ] ; then
+        mkdir -p $HOME/development
+fi
+
+if [ ! -f "$HOME/development/.gitconfig" ] ; then
+        cp $script_path/gitconfig.development $HOME/development/.gitconfig
+fi
+
+### Personal development directory ###
+if [ ! -d "$HOME/development/personal" ] ; then
+        mkdir -p $HOME/development/personal
+fi
+
+if [ ! -f "$HOME/development/personal/.gitconfig" ] ; then
+        cp $script_path/gitconfig.personal $HOME/development/personal/.gitconfig
+fi
+
 ### vim setup ###
 
 # If bundle directory for pathogen doesn't exist, create it
@@ -94,7 +113,7 @@ if [ ! -f "$HOME/.vim/colors/apprentice.vim" ] ; then
         cp $script_path/vim/colors/apprentice.vim $HOME/.vim/colors/
 fi
 
-### Dotfile
+### Dotfile Linking ###
 cd $script_path
 rcup gitconfig
 rcup gitignore

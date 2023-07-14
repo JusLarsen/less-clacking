@@ -1,7 +1,3 @@
-[user]
-	email = jlarsen@traegergrills.com
-	name = J. Alan Larsen
-
 [core]
     editor = vim
     excludesfile = ~/.gitignore
@@ -9,3 +5,5 @@
     default = simple
 [init]
 	defaultBranch = development
+[include]
+    path = ~/development/.gitconfig
