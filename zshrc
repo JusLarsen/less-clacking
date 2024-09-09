@@ -32,5 +32,10 @@ export NVM_DIR="$HOME/.nvm"
 
 source $(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme
 
+source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh
+source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
+chruby ruby-3.3.0
+
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

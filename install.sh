@@ -89,6 +89,16 @@ if [ ! -f "$HOME/development/personal/.gitconfig" ] ; then
         cp $script_path/gitconfig.personal $HOME/development/personal/.gitconfig
 fi
 
+### Work development directory ###
+if [ ! -d "$HOME/development/work" ] ; then
+        mkdir -p $HOME/development/work
+fi
+
+if [ ! -f "$HOME/development/work/.gitconfig" ] ; then
+        cp $script_path/gitconfig.work $HOME/development/work/.gitconfig
+fi
+
+
 ### vim setup ###
 
 # If bundle directory for pathogen doesn't exist, create it
