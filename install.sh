@@ -75,29 +75,20 @@ fi
 if [ ! -d "$HOME/development" ] ; then
         mkdir -p $HOME/development
 fi
-
-if [ ! -f "$HOME/development/.gitconfig" ] ; then
-        cp $script_path/gitconfig.development $HOME/development/.gitconfig
-fi
+cp $script_path/gitconfig.development $HOME/development/.gitconfig
 
 ### Personal development directory ###
 if [ ! -d "$HOME/development/personal" ] ; then
         mkdir -p $HOME/development/personal
 fi
+cp $script_path/gitconfig.personal $HOME/development/personal/.gitconfig
 
-if [ ! -f "$HOME/development/personal/.gitconfig" ] ; then
-        cp $script_path/gitconfig.personal $HOME/development/personal/.gitconfig
-fi
 
 ### Work development directory ###
 if [ ! -d "$HOME/development/work" ] ; then
         mkdir -p $HOME/development/work
 fi
-
-if [ ! -f "$HOME/development/work/.gitconfig" ] ; then
-        cp $script_path/gitconfig.work $HOME/development/work/.gitconfig
-fi
-
+cp $script_path/gitconfig.work $HOME/development/work/.gitconfig
 
 ### vim setup ###
 
