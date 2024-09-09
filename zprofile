@@ -52,10 +52,6 @@ export CLICOLOR=1
 # fallback libraries for compiling caffe with cuda
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/cuda/lib:$HOME/anaconda/lib:/usr/local/lib:/usr/lib
 
-# Custom compilation flags for brew installs of zlib and sqlite
-export LDFLAGS="-L/usr/local/opt/zlib/lib"
-export CPPFLAGS="-I/usr/local/opt/zlib/include"
-
 export GREP_OPTIONS='--color=auto'
 
 export PATH=/usr/local/sbin:$PATH

@@ -24,6 +24,17 @@ bash ~/.dotfiles/install.sh
 
 If it breaks, just run the commands one by one? Godspeed.
 
+
+## Directory Layout
+
+This repository manages `git` identities using the following directory structure
+
+- `~/.dotfiles` - contains top level configs for the home environment and a blanket `.gitignore`
+- `~/development` - assumed landing place for all development work
+- `~/development/personal` - code staged here will be signed with my personal key. Open source and hobby projects go here.
+- `~/development/work` - code staged here will be signed with my work key. Anything owned by my company goes here.
+
+
 ## Code Maintainers
 
 | Name          | GitHub                                             | Email                                                 | Role             |
