@@ -9,7 +9,7 @@ script_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 if ! command -v brew &> /dev/null
 then
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    exit
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Install tools from Brewfile
@@ -123,3 +123,4 @@ rcup vimrc
 rcup zshrc
 rcup hammerspoon
 rcup p10k.zsh
+rcup tool-versions
