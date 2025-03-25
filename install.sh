@@ -4,12 +4,17 @@
 
 script_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
-
 # Install homebrew if it's not already installed
 if ! command -v brew &> /dev/null
 then
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    
+    # Path differs between Intel and Apple Silicon Macs
+    if [[ $(uname -m) == "arm64" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    else
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
 fi
 
 # Install tools from Brewfile
@@ -67,11 +72,11 @@ done
 
 ### Terminal setup ###
 if [ ! -d "$HOME/.oh-my-zsh/" ] ; then
-    bash -c "$(curl -s https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
 ### Directory Setup for Multi-Identity Commits ###
-### Devevelopment directory ###
+### Development directory ###
 if [ ! -d "$HOME/development" ] ; then
         mkdir -p $HOME/development
 fi
@@ -83,12 +88,35 @@ if [ ! -d "$HOME/development/personal" ] ; then
 fi
 cp $script_path/gitconfig.personal $HOME/development/personal/.gitconfig
 
-
 ### Work development directory ###
 if [ ! -d "$HOME/development/work" ] ; then
         mkdir -p $HOME/development/work
 fi
 cp $script_path/gitconfig.work $HOME/development/work/.gitconfig
+
+### GPG setup ###
+if ! brew list pinentry-mac &> /dev/null; then
+    echo "Installing pinentry-mac for GPG..."
+    brew install pinentry-mac
+fi
+
+# Configure GPG agent
+mkdir -p "$HOME/.gnupg"
+chmod 700 "$HOME/.gnupg"
+
+# Only create gpg-agent.conf if it doesn't exist
+if [ ! -f "$HOME/.gnupg/gpg-agent.conf" ]; then
+    if [[ $(uname -m) == "arm64" ]]; then
+        echo "pinentry-program /opt/homebrew/bin/pinentry-mac" > "$HOME/.gnupg/gpg-agent.conf"
+    else
+        echo "pinentry-program /usr/local/bin/pinentry-mac" > "$HOME/.gnupg/gpg-agent.conf"
+    fi
+    echo "default-cache-ttl 3600" >> "$HOME/.gnupg/gpg-agent.conf"
+    echo "max-cache-ttl 7200" >> "$HOME/.gnupg/gpg-agent.conf"
+fi
+
+# Restart GPG agent
+gpgconf --kill gpg-agent
 
 ### vim setup ###
 
@@ -124,3 +152,6 @@ rcup zshrc
 rcup hammerspoon
 rcup p10k.zsh
 rcup tool-versions
+
+echo "Installation complete! You may need to restart your terminal for all changes to take effect."
+echo "Don't forget to set up your GPG keys for signing commits following the instructions in the README."
