@@ -34,8 +34,13 @@ source $(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-them
 
 source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh
 source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
-chruby ruby-3.3.0
+# chruby ruby-3.3.0
 
+function get_gitlab_token() {
+      security find-generic-password -a $USER -s gitlab-pat -w
+    }
+
+export GITLAB_TOKEN=$(get_gitlab_token)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

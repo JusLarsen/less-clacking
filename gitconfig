@@ -7,3 +7,6 @@
 	defaultBranch = development
 [include]
     path = ~/development/.gitconfig
+[user]
+	name = J. Alan Larsen
+	email = jlarsen@traeger.com

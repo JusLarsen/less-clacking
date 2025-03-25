@@ -49,15 +49,10 @@ function extract()      # Handy Extract Program
 # exports
 export CLICOLOR=1
 
-# fallback libraries for compiling caffe with cuda
-export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/cuda/lib:$HOME/anaconda/lib:/usr/local/lib:/usr/lib
-
-export GREP_OPTIONS='--color=auto'
+# Use grep color without deprecated GREP_OPTIONS
+alias grep='grep --color=auto'
 
 export PATH=/usr/local/sbin:$PATH
-
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 eval $(/opt/homebrew/bin/brew shellenv)
 
 # Load pyenv
