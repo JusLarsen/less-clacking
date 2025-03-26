@@ -1,28 +1,48 @@
-# CLAUDE.md - Configuration for AI Agents
+# Claude Guidelines for Personal Development Projects
 
-## Environment Setup
-- This is a personal dotfiles repository for macOS configuration
-- Uses `rcup` from thoughtbot's RCM for dotfile management
-- Main setup: `./install.sh` (installs dependencies and links files)
+## Tech Stacks
+- Frontend: NextJS with Vercel deployment
+- API: Node.js with TypeScript
+- Data: Python with Pandas, dbt, Airflow
+- GraphQL: Apollo Server/Client
+- Database: PostgreSQL, Redshift, TimescaleDB
+- Environment: asdf for version management, pipenv for python, npm for node packages
+- Deployment: Vercel for frontend, digitalocean for backend
+- Instrumentation: Sentry for error tracking, loki for logging, grafana for monitoring
+
+## Commands
+- Frontend: `npm run dev` (NextJS development)
+- API: `npm run start:dev` (Node development)
+- Tests: `npm test` or `python -m pytest`
+- Linting: `npm run lint` or `flake8`
+- CI Linting: `npm run lint:ci` or `eslint`
+- Type checking: `npm run typecheck` or `mypy`
+- Python env: `pipenv install` and `pipenv shell`
+- dbt: `dbt run`, `dbt test`
 
 ## Code Style
-- Shell scripts: Use bash for compatibility
-- Use meaningful comments for complex operations
-- Maintain proper indentation (2-space preferred)
-- Keep functions small and focused on a single task
-- Use explicit paths rather than relative ones when appropriate
+- Naming: prefer case insensitive schemes such as kebab-case (URLs, filenames) or snake_case (variables)
+- Clean Code: Agile Software Craftsmanship principles thoughtfully applied to all projects
+- DRY: Don't Repeat Yourself
+- Favors simplicity over complexity
+- Consistent formatting with Prettier and Black
+- Linting with ESLint and Flake8
+- TypeScript:
+  - Strong typing with interfaces/types
+  - Functional components for React
+  - Named exports preferred
+- Python:
+  - Type hints required
+  - Black for formatting
+  - Pandas for data manipulation
 
-## Tools & Frameworks
-- Package management: Homebrew (via Brewfile)
-- Shell: Zsh with Oh-My-Zsh and Powerlevel10k theme
-- Version managers: asdf, nvm, pyenv, chruby
-- Git identity management via directory-specific .gitconfig files
+## Project Structure
+- NextJS: pages/app router with /components, /hooks, /utils
+- Node API: /controllers, /services, /models, /middleware
+- GraphQL: Apollo Server with type definitions and resolvers
+- Data: Airflow DAGs, dbt models, Python with pandas
 
-## Organization
-- System configs in root directory
-- Directory structure follows standard dotfiles conventions
-- Specialized configs in dedicated subdirectories when needed
-
-## Git Practices
-- Default branch: development
-- Uses directory-specific git identities for personal/work separation
+## Error Handling
+- Use typed errors and proper status codes
+- Consistent error response format
+- Client-side error boundaries
