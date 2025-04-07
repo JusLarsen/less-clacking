@@ -1,26 +1,35 @@
+# Determine if we're in vscode to protect our precious LLM friends from our human friendly terminal
+export IN_VSCODE=0
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  . "$(code --locate-shell-integration-path zsh)"
+  export IN_VSCODE=1
+fi
+
 # load zsh
 export MY_USER=$(whoami)
 export ZSH="/Users/$MY_USER/.oh-my-zsh"
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+# Enable Powerlevel10k instant prompt when not in VSCode
+if [[ $IN_VSCODE -eq 0 ]] && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # load plugins
-plugins=(
-  asdf
-  autojump
-  git
-  poetry
-)
-
-source $ZSH/oh-my-zsh.sh
+  plugins=(
+    asdf
+    autojump
+    git
+    poetry
+  )
+  
+if [[ $IN_VSCODE -eq 0 ]]; then
+  source $ZSH/oh-my-zsh.sh
+fi
 
 # Aliases
-unalias grv # git plugin and grv conflict
+if [[ $IN_VSCODE -eq 0 ]]; then
+  unalias grv # git plugin and grv conflict
+fi
 . $(brew --prefix asdf)/libexec/asdf.sh 
 
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
@@ -30,7 +39,10 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 
-source $(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme
+# Load powerlevel10k when not in VSCode
+if [[ $IN_VSCODE -eq 0 ]]; then
+  source $(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme
+fi
 
 source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh
 source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
@@ -43,4 +55,8 @@ function get_gitlab_token() {
 export GITLAB_TOKEN=$(get_gitlab_token)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ $IN_VSCODE -eq 0 ]]; then
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
+
+. "$HOME/.local/bin/env"
