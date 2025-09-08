@@ -7,7 +7,7 @@ A personal dotfiles repository for quick and consistent macOS setup.
 ## ✨ Features
 
 - **Terminal Environment**: Zsh with Oh-My-Zsh and Powerlevel10k
-- **Development Tools**: Configured for Python, Ruby, Node.js, and more
+- **Development Tools**: Unified version management with asdf, modern Python tooling with uv
 - **Git Identity Management**: Separate configurations for personal and work projects
 - **macOS Preferences**: Sensible defaults for Finder, Dock, and other system preferences
 - **Editor Setup**: Vim configuration with essential settings
@@ -23,7 +23,8 @@ A personal dotfiles repository for quick and consistent macOS setup.
 | Shell Framework | [Oh-My-Zsh](https://ohmyz.sh/) | Framework for managing Zsh configuration |
 | Shell Theme | [Powerlevel10k](https://github.com/romkatv/powerlevel10k) | Fast and customizable Zsh prompt |
 | Window Management | [Hammerspoon](https://www.hammerspoon.org/) | Powerful automation tool for macOS |
-| Version Management | [asdf](https://asdf-vm.com/) | Multiple runtime version manager |
+| Version Management | [asdf](https://asdf-vm.com/) | Unified runtime version manager for all languages |
+| Python Development | [uv](https://docs.astral.sh/uv/) | Fast Python package and project manager |
 
 ## 🚀 Installation
 
@@ -167,6 +168,129 @@ To configure git identities on a new machine:
 - Consider using a YubiKey or other hardware security key for storing your GPG keys
 - Regularly back up your GPG keys to a secure, encrypted location
 - If you're using multiple machines, securely transfer your GPG keys between them
+
+## 🐍 Modern Python Development
+
+This dotfiles configuration uses **uv** for fast, modern Python development alongside **asdf** for version management.
+
+### Why uv?
+
+- **10-100x faster** than traditional tools (pip, pipenv, poetry)
+- **Unified toolchain** - handles Python versions, virtual environments, and dependencies
+- **Modern standards** - uses `pyproject.toml` and lock files for reproducible builds
+- **Rust-powered** performance with parallel downloads and optimized dependency resolution
+
+### Python Development Workflow
+
+1. **Project Setup** (uv handles Python installation automatically):
+   ```bash
+   cd ~/development/personal/my-project
+   echo "3.13.1" > .python-version  # Matches global asdf version
+   uv init
+   uv add fastapi requests pytest
+   ```
+
+2. **Development**:
+   ```bash
+   uv run python main.py          # Run Python scripts
+   uv run pytest                  # Run tests
+   uv add --dev black ruff        # Add development dependencies
+   uv sync                        # Install/sync all dependencies
+   ```
+
+3. **Environment Management**:
+   ```bash
+   uv venv                        # Create virtual environment
+   source .venv/bin/activate      # Activate (or let uv handle it)
+   uv pip list                    # List installed packages
+   ```
+
+### Migration from Legacy Tools
+
+If you have existing projects using pip, pipenv, or poetry:
+
+```bash
+# Automatic migration
+uvx migrate-to-uv
+
+# Manual migration for pip projects
+uv init --package
+uv add $(cat requirements.txt | xargs)
+
+# For poetry projects
+uv init --package
+uv sync  # Uses existing pyproject.toml
+```
+
+### Global Python Tools
+
+Install global Python tools using `uv`:
+
+```bash
+uvx install black              # Code formatter
+uvx install ruff               # Fast linter
+uvx install httpie             # HTTP client
+uvx list                       # List installed tools
+```
+
+## ⚙️ Version Management
+
+This configuration uses **asdf** as the unified version manager for all programming languages, replacing multiple version managers (nvm, pyenv, chruby) with a single tool.
+
+### Supported Languages
+
+Languages are managed through `.tool-versions` files:
+
+```bash
+# Global versions (in ~/.tool-versions)
+nodejs 22.14.0
+python 3.13.1  
+ruby 3.3.6
+
+# Project-specific versions (in your project/.tool-versions)
+nodejs 20.10.0
+python 3.12.0
+```
+
+### Common Commands
+
+```bash
+# Install a language runtime
+asdf install nodejs 22.14.0
+asdf install python 3.13.1
+asdf install ruby 3.3.6
+
+# Set global default versions
+asdf global nodejs 22.14.0
+asdf global python 3.13.1
+asdf global ruby 3.3.6
+
+# Set project-specific version
+cd ~/development/personal/my-project
+asdf local nodejs 20.10.0
+
+# List available versions
+asdf list all nodejs
+asdf list all python
+
+# List installed versions
+asdf list nodejs
+asdf list python
+```
+
+### Language-Specific Setup
+
+- **Python**: Use `uv` for package management (see Python Development section)
+- **Node.js**: Use `npm` or your preferred package manager
+- **Ruby**: Use `gem` and `bundle` for dependency management
+
+### Migration Notes
+
+If you previously used other version managers:
+
+- **nvm** → Remove `~/.nvm` and NVM shell integrations (already cleaned up)
+- **pyenv** → Remove `~/.pyenv` and shell integrations (already cleaned up)  
+- **chruby** → Remove chruby shell integrations (already cleaned up)
 
 ## 🧠 Customization
 

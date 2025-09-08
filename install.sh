@@ -153,5 +153,13 @@ rcup hammerspoon
 rcup p10k.zsh
 rcup tool-versions
 
+### Claude Code Subagent Setup ###
+rcup claude
+# Link the project CLAUDE.md as user-level Claude guidelines
+if [ ! -f "$HOME/.claude/CLAUDE.md" ]; then
+    ln -s "$script_path/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+fi
+
 echo "Installation complete! You may need to restart your terminal for all changes to take effect."
 echo "Don't forget to set up your GPG keys for signing commits following the instructions in the README."
+echo "Claude Code subagents have been installed to ~/.claude/agents/ - use '/agents' command to access them."

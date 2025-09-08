@@ -19,7 +19,6 @@ fi
     asdf
     autojump
     git
-    poetry
   )
   
 if [[ $IN_VSCODE -eq 0 ]]; then
@@ -33,10 +32,6 @@ fi
 . $(brew --prefix asdf)/libexec/asdf.sh 
 
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
-export PATH="$HOME/.poetry/bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 
 # Load powerlevel10k when not in VSCode
@@ -44,9 +39,6 @@ if [[ $IN_VSCODE -eq 0 ]]; then
   source $(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme
 fi
 
-source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh
-source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
-# chruby ruby-3.3.0
 
 function get_gitlab_token() {
       security find-generic-password -a $USER -s gitlab-pat -w
@@ -60,3 +52,11 @@ if [[ $IN_VSCODE -eq 0 ]]; then
 fi
 
 . "$HOME/.local/bin/env"
+
+# pnpm
+export PNPM_HOME="/Users/jlarsen/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
