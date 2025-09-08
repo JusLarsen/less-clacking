@@ -55,10 +55,6 @@ alias grep='grep --color=auto'
 export PATH=/usr/local/sbin:$PATH
 eval $(/opt/homebrew/bin/brew shellenv)
 
-# Load pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
 
 # Configure GPG to accept passphrase from terminal
 export GPG_TTY=$(tty)
