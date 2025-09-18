@@ -1,0 +1,36 @@
+name: Lint
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install shellcheck
+      run: |
+        wget -qO- "https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz" | tar -xJv
+        sudo cp shellcheck-stable/shellcheck /usr/local/bin/
+        shellcheck --version
+
+    - name: Install shfmt
+      run: |
+        wget -qO shfmt https://github.com/mvdan/sh/releases/download/v3.7.0/shfmt_v3.7.0_linux_amd64
+        chmod +x shfmt
+        sudo mv shfmt /usr/local/bin/
+        shfmt --version
+
+    - name: Install markdownlint
+      run: |
+        sudo npm install -g markdownlint-cli
+        markdownlint --version
+
+    - name: Run linters
+      run: make lint

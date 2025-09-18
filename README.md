@@ -40,8 +40,20 @@ The `.dotfiles` directory contains install scripts and files that will be symlin
 .dotfiles/
 ├── README.md              # This documentation
 ├── CLAUDE.md              # AI assistant guidelines
+├── Makefile               # Linting and formatting commands
 ├── install.sh             # Main installation script
 ├── Brewfile               # Homebrew dependencies
+├── .github/
+│   └── workflows/
+│       └── lint.yml       # GitHub Actions linting workflow
+├── claude/
+│   └── agents/            # Claude agent configurations
+│       ├── code-reviewer.md
+│       ├── developer.md
+│       ├── investigator.md
+│       ├── qa-specialist.md
+│       ├── security-engineer.md
+│       └── software-architect.md
 ├── scripts/
 │   └── setup-gpg.sh       # GPG configuration automation
 ├── gitconfig              # Main git configuration
@@ -65,15 +77,16 @@ After installation, your development environment uses directory-based git identi
 ```
 ~/
 ├── .dotfiles/             # This repository (cloned)
+├── .claude/               # Claude agent configurations
 ├── .gitconfig             # Symlinked from .dotfiles/gitconfig
 ├── .zshrc                 # Symlinked from .dotfiles/zshrc
 ├── .vimrc                 # Symlinked from .dotfiles/vimrc
-├── development/           # Main development directory
-│   ├── personal/          # Personal projects
-│   │   └── .gitconfig     # Uses justin@larsen.dev
-│   └── work/              # Work projects
-│       └── .gitconfig     # Uses jlarsen@traeger.com
-└── .hammerspoon/          # Symlinked from .dotfiles/hammerspoon/
+├── .hammerspoon/          # Symlinked from .dotfiles/hammerspoon/
+└── development/           # Main development directory
+    ├── personal/          # Personal projects
+    │   └── .gitconfig     # Uses justin@larsen.dev
+    └── work/              # Work projects
+        └── .gitconfig     # Uses jlarsen@traeger.com
 ```
 
 ## Git Identity Management
