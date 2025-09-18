@@ -18,7 +18,8 @@ then
 fi
 
 # Install tools from Brewfile
-brew bundle install --file=~/.dotfiles/Brewfile
+# Note: Docker Desktop may fail if not run with sudo - install manually if needed
+brew bundle --file=~/.dotfiles/Brewfile || true
 
 # Finder: show all filename extensions
 # http://www.defaults-write.com/display-the-file-extensions-in-finder/
@@ -118,6 +119,15 @@ fi
 # Restart GPG agent
 gpgconf --kill gpg-agent
 
+# Run GPG setup wizard to configure signing keys
+if [ -f "$script_path/scripts/setup-gpg.sh" ]; then
+    echo "Running GPG setup wizard..."
+    "$script_path/scripts/setup-gpg.sh"
+else
+    echo "GPG setup wizard not found at $script_path/scripts/setup-gpg.sh"
+    echo "You can run it manually later to configure GPG signing keys."
+fi
+
 ### vim setup ###
 
 # If bundle directory for pathogen doesn't exist, create it
@@ -161,5 +171,8 @@ if [ ! -f "$HOME/.claude/CLAUDE.md" ]; then
 fi
 
 echo "Installation complete! You may need to restart your terminal for all changes to take effect."
-echo "Don't forget to set up your GPG keys for signing commits following the instructions in the README."
+echo "GPG signing keys have been configured automatically for your personal and work identities."
 echo "Claude Code subagents have been installed to ~/.claude/agents/ - use '/agents' command to access them."
+echo ""
+echo "Note: If Docker Desktop failed to install, run: brew install --cask docker"
+echo "If you need to reconfigure GPG signing later, run: ~/.dotfiles/scripts/setup-gpg.sh"

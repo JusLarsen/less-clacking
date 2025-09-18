@@ -1,4 +1,3 @@
-tap "homebrew/bundle"
 tap "thoughtbot/formulae"
 tap "dbt-labs/dbt-cli"
 brew "asdf"
