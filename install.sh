@@ -130,7 +130,6 @@ else
   echo "You can run it manually later to configure GPG signing keys."
 fi
 
-
 ### Dotfile Linking ###
 cd "$script_path" || exit
 rcup gitconfig
