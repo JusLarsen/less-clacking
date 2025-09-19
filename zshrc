@@ -40,18 +40,10 @@ if [[ $IN_VSCODE -eq 0 ]]; then
 fi
 
 
-function get_gitlab_token() {
-      security find-generic-password -a $USER -s gitlab-pat -w
-    }
-
-export GITLAB_TOKEN=$(get_gitlab_token)
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 if [[ $IN_VSCODE -eq 0 ]]; then
   [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fi
-
-. "$HOME/.local/bin/env"
 
 # pnpm
 export PNPM_HOME="/Users/jlarsen/Library/pnpm"

@@ -34,6 +34,7 @@ bash ~/.dotfiles/install.sh
 This installs Homebrew packages, configures shell/macOS preferences, and links dotfiles.
 
 ## Repository Structure
+
 The `.dotfiles` directory contains install scripts and files that will be symlinked into our home directory.
 
 ```
@@ -94,6 +95,7 @@ After installation, your development environment uses directory-based git identi
 This dotfiles repository implements a directory-based git identity system to automatically use the correct name, email, and signing key based on the location of your repositories.
 
 Directory-based git configuration automatically uses the correct identity:
+
 - `~/development/personal/` - Uses `justin@larsen.dev` email
 - `~/development/work/` - Uses `jlarsen@traeger.com` email
 
@@ -106,12 +108,14 @@ Commits are configured to be signed with GPG for additional security and verific
 To configure git identities on a new machine:
 
 1. Clone this repository and run the install script:
+
    ```bash
    git clone git@github.com:JusLarsen/less-clacking.git ~/.dotfiles
    bash ~/.dotfiles/install.sh
    ```
 
 2. Import or generate your GPG keys:
+
    ```bash
    # Import existing key (NEVER email private keys)
    gpg --import /path/to/private-key.asc
@@ -120,6 +124,7 @@ To configure git identities on a new machine:
    ```
 
 3. Run the automated setup:
+
    ```bash
    ./scripts/setup-gpg.sh
    ```
@@ -127,6 +132,7 @@ To configure git identities on a new machine:
    This configures GPG signing for both personal and work identities automatically.
 
 4. Test your configuration:
+
    ```bash
    # Navigate to a personal project and verify git config
    cd ~/development/personal/your-project
@@ -138,7 +144,6 @@ To configure git identities on a new machine:
    git config --get user.email  # Should show work email
    git config --get user.signingkey  # Should show your GPG key ID
    ```
-
 
 ### Security Notes
 
@@ -155,6 +160,7 @@ Uses **uv** - a fast Python package manager (10-100x faster than pip/poetry) tha
 ### Python Development Workflow
 
 1. **Project Setup** (uv handles Python installation automatically):
+
    ```bash
    cd ~/development/personal/my-project
    echo "3.13.1" > .python-version  # Matches global asdf version
@@ -163,6 +169,7 @@ Uses **uv** - a fast Python package manager (10-100x faster than pip/poetry) tha
    ```
 
 2. **Development**:
+
    ```bash
    uv run python main.py          # Run Python scripts
    uv run pytest                  # Run tests
@@ -171,6 +178,7 @@ Uses **uv** - a fast Python package manager (10-100x faster than pip/poetry) tha
    ```
 
 3. **Environment Management**:
+
    ```bash
    uv venv                        # Create virtual environment
    source .venv/bin/activate      # Activate (or let uv handle it)
@@ -178,7 +186,6 @@ Uses **uv** - a fast Python package manager (10-100x faster than pip/poetry) tha
    ```
 
 To migrate existing projects: `uvx migrate-to-uv`
-
 
 ## Version Management
 
@@ -230,7 +237,6 @@ asdf list python
 - **Python**: Use `uv` for package management (see Python Development section)
 - **Node.js**: Use `npm` or your preferred package manager
 - **Ruby**: Use `gem` and `bundle` for dependency management
-
 
 ## Customization
 

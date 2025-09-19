@@ -27,4 +27,4 @@ install-linters: ## Install linting tools via Homebrew
 	@echo "Installing linters..."
 	@command -v shellcheck >/dev/null 2>&1 || brew install shellcheck
 	@command -v shfmt >/dev/null 2>&1 || brew install shfmt
-	@command -v markdownlint >/dev/null 2>&1 || npm install -g markdownlint-cli
+	@command -v markdownlint >/dev/null 2>&1 || brew install markdownlint-cli
