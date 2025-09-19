@@ -1,10 +1,8 @@
-# 🧰 Less Clacking
+# Less Clacking
 
-> Because I'm tired of resetting up my shell as I move around from machine to machine.
+Personal dotfiles for consistent macOS development setup.
 
-A personal dotfiles repository for quick and consistent macOS setup.
-
-## ✨ Features
+## Features
 
 - **Terminal Environment**: Zsh with Oh-My-Zsh and Powerlevel10k
 - **Development Tools**: Unified version management with asdf, modern Python tooling with uv
@@ -12,7 +10,7 @@ A personal dotfiles repository for quick and consistent macOS setup.
 - **macOS Preferences**: Sensible defaults for Finder, Dock, and other system preferences
 - **Editor Setup**: Vim configuration with essential settings
 
-## 🛠️ Tools & Technologies
+## Tools & Technologies
 
 | Category | Tool | Description |
 |:---------|:-----|:------------|
@@ -26,49 +24,80 @@ A personal dotfiles repository for quick and consistent macOS setup.
 | Version Management | [asdf](https://asdf-vm.com/) | Unified runtime version manager for all languages |
 | Python Development | [uv](https://docs.astral.sh/uv/) | Fast Python package and project manager |
 
-## 🚀 Installation
+## Installation
 
 ```bash
 git clone git@github.com:JusLarsen/less-clacking.git ~/.dotfiles
 bash ~/.dotfiles/install.sh
 ```
 
-The install script will:
-1. Install Homebrew if needed
-2. Install packages from Brewfile
-3. Set macOS preferences
-4. Configure Oh-My-Zsh
-5. Set up development directories
-6. Link dotfiles to your home directory using RCM
+This installs Homebrew packages, configures shell/macOS preferences, and links dotfiles.
 
-## 📂 Directory Structure
+## Repository Structure
 
-This repository manages `git` identities using the following directory structure:
+The `.dotfiles` directory contains install scripts and files that will be symlinked into our home directory.
 
 ```
-~
-├── .dotfiles           # Configuration files and setup scripts
-├── development         # Main development directory
-│   ├── personal        # Personal projects (signed with personal key)
-│   └── work            # Work projects (signed with work key)
+.dotfiles/
+├── README.md              # This documentation
+├── CLAUDE.md              # AI assistant guidelines
+├── Makefile               # Linting and formatting commands
+├── install.sh             # Main installation script
+├── Brewfile               # Homebrew dependencies
+├── .github/
+│   └── workflows/
+│       └── lint.yml       # GitHub Actions linting workflow
+├── claude/
+│   └── agents/            # Claude agent configurations
+│       ├── code-reviewer.md
+│       ├── developer.md
+│       ├── investigator.md
+│       ├── qa-specialist.md
+│       ├── security-engineer.md
+│       └── software-architect.md
+├── scripts/
+│   └── setup-gpg.sh       # GPG configuration automation
+├── gitconfig              # Main git configuration
+├── gitconfig.development  # Shared development settings
+├── gitconfig.personal     # Personal git identity
+├── gitconfig.work         # Work git identity
+├── gitignore              # Global git ignore rules
+├── zshrc                  # Zsh shell configuration
+├── zprofile               # Zsh profile settings
+├── vimrc                  # Vim editor configuration
+├── p10k.zsh               # Powerlevel10k theme
+├── tool-versions          # asdf version specifications
+├── hammerspoon/           # Window management scripts
+└── vim/                   # Vim plugins and settings
 ```
 
-## 🔑 Git Identity Management
+## Installed Structure
+
+After installation, your development environment uses directory-based git identity management:
+
+```
+~/
+├── .dotfiles/             # This repository (cloned)
+├── .claude/               # Claude agent configurations
+├── .gitconfig             # Symlinked from .dotfiles/gitconfig
+├── .zshrc                 # Symlinked from .dotfiles/zshrc
+├── .vimrc                 # Symlinked from .dotfiles/vimrc
+├── .hammerspoon/          # Symlinked from .dotfiles/hammerspoon/
+└── development/           # Main development directory
+    ├── personal/          # Personal projects
+    │   └── .gitconfig     # Uses justin@larsen.dev
+    └── work/              # Work projects
+        └── .gitconfig     # Uses jlarsen@traeger.com
+```
+
+## Git Identity Management
 
 This dotfiles repository implements a directory-based git identity system to automatically use the correct name, email, and signing key based on the location of your repositories.
 
-### How It Works
+Directory-based git configuration automatically uses the correct identity:
 
-1. The main `~/.gitconfig` includes a path-specific configuration based on your current directory
-2. Directory-specific `.gitconfig` files are set up in the development directories:
-   - `~/development/.gitconfig` - Common settings for all development projects
-   - `~/development/personal/.gitconfig` - Settings for personal projects
-   - `~/development/work/.gitconfig` - Settings for work projects
-
-### Identity Configuration
-
-- **Personal**: Uses `justin@larsen.dev` email for open source and hobby projects
-- **Work**: Uses `jlarsen@traeger.com` email for company-related repositories
+- `~/development/personal/` - Uses `justin@larsen.dev` email
+- `~/development/work/` - Uses `jlarsen@traeger.com` email
 
 ### GPG Signing
 
@@ -79,67 +108,31 @@ Commits are configured to be signed with GPG for additional security and verific
 To configure git identities on a new machine:
 
 1. Clone this repository and run the install script:
+
    ```bash
    git clone git@github.com:JusLarsen/less-clacking.git ~/.dotfiles
    bash ~/.dotfiles/install.sh
    ```
 
-2. Install GPG if not already installed via Homebrew:
-   ```bash
-   brew install gnupg pinentry-mac
-   ```
+2. Import or generate your GPG keys:
 
-3. Configure GPG to use the macOS pinentry program:
    ```bash
-   echo "pinentry-program /opt/homebrew/bin/pinentry-mac" > ~/.gnupg/gpg-agent.conf
-   gpgconf --kill gpg-agent
-   ```
-
-4. Import your GPG keys for signing:
-   ```bash
-   # Import existing GPG key from a file or USB drive (NEVER email your private key)
+   # Import existing key (NEVER email private keys)
    gpg --import /path/to/private-key.asc
-   
-   # Or generate a new GPG key if needed
+   # Or generate new
    gpg --full-generate-key
    ```
 
-5. Configure GPG key for git:
+3. Run the automated setup:
+
    ```bash
-   # Get your key ID
-   gpg --list-secret-keys --keyid-format LONG
-   
-   # The output will look like this:
-   # sec   rsa4096/AABBCCDDEEFF1122 2023-01-01 [SC]
-   #       1234567890ABCDEF1234567890ABCDEF12345678
-   # uid                 [ultimate] Your Name <your.email@example.com>
-   # ssb   rsa4096/1122334455667788 2023-01-01 [E]
-   
-   # The value after rsa4096/ is your key ID (AABBCCDDEEFF1122 in this example)
-   
-   # Add the key ID to your personal and/or work .gitconfig files
-   echo "  signingkey = YOUR_KEY_ID" >> ~/development/personal/.gitconfig
-   echo "  signingkey = YOUR_KEY_ID" >> ~/development/work/.gitconfig
+   ./scripts/setup-gpg.sh
    ```
 
-6. Make sure the GPG key is trusted:
-   ```bash
-   gpg --edit-key YOUR_KEY_ID
-   # At the gpg> prompt, type:
-   # trust
-   # 5
-   # y
-   # quit
-   ```
+   This configures GPG signing for both personal and work identities automatically.
 
-7. Configure git to always use GPG:
-   ```bash
-   # This is already set in the development/.gitconfig, but double-check:
-   git config --list | grep gpg
-   # Should show "commit.gpgsign=true"
-   ```
+4. Test your configuration:
 
-8. Test your configuration:
    ```bash
    # Navigate to a personal project and verify git config
    cd ~/development/personal/your-project
@@ -152,37 +145,22 @@ To configure git identities on a new machine:
    git config --get user.signingkey  # Should show your GPG key ID
    ```
 
-9. Make a test commit in each location to verify signatures are working correctly:
-   ```bash
-   # Test commit
-   echo "test" > test.txt
-   git add test.txt
-   git commit -m "Test signed commit"
-   git log --show-signature -1  # Verify the signature is good
-   ```
+### Security Notes
 
-### Security Considerations
+- Never store private GPG keys in repositories
+- Use strong passphrases and consider hardware security keys
+- Back up keys to secure, encrypted locations
 
-- **NEVER** store your private GPG keys in your dotfiles repository or any public repository
-- Use a strong passphrase for your GPG key
-- Consider using a YubiKey or other hardware security key for storing your GPG keys
-- Regularly back up your GPG keys to a secure, encrypted location
-- If you're using multiple machines, securely transfer your GPG keys between them
-
-## 🐍 Modern Python Development
+## Python Development
 
 This dotfiles configuration uses **uv** for fast, modern Python development alongside **asdf** for version management.
 
-### Why uv?
-
-- **10-100x faster** than traditional tools (pip, pipenv, poetry)
-- **Unified toolchain** - handles Python versions, virtual environments, and dependencies
-- **Modern standards** - uses `pyproject.toml` and lock files for reproducible builds
-- **Rust-powered** performance with parallel downloads and optimized dependency resolution
+Uses **uv** - a fast Python package manager (10-100x faster than pip/poetry) that handles versions, virtual environments, and dependencies with `pyproject.toml` and lock files.
 
 ### Python Development Workflow
 
 1. **Project Setup** (uv handles Python installation automatically):
+
    ```bash
    cd ~/development/personal/my-project
    echo "3.13.1" > .python-version  # Matches global asdf version
@@ -191,6 +169,7 @@ This dotfiles configuration uses **uv** for fast, modern Python development alon
    ```
 
 2. **Development**:
+
    ```bash
    uv run python main.py          # Run Python scripts
    uv run pytest                  # Run tests
@@ -199,41 +178,16 @@ This dotfiles configuration uses **uv** for fast, modern Python development alon
    ```
 
 3. **Environment Management**:
+
    ```bash
    uv venv                        # Create virtual environment
    source .venv/bin/activate      # Activate (or let uv handle it)
    uv pip list                    # List installed packages
    ```
 
-### Migration from Legacy Tools
+To migrate existing projects: `uvx migrate-to-uv`
 
-If you have existing projects using pip, pipenv, or poetry:
-
-```bash
-# Automatic migration
-uvx migrate-to-uv
-
-# Manual migration for pip projects
-uv init --package
-uv add $(cat requirements.txt | xargs)
-
-# For poetry projects
-uv init --package
-uv sync  # Uses existing pyproject.toml
-```
-
-### Global Python Tools
-
-Install global Python tools using `uv`:
-
-```bash
-uvx install black              # Code formatter
-uvx install ruff               # Fast linter
-uvx install httpie             # HTTP client
-uvx list                       # List installed tools
-```
-
-## ⚙️ Version Management
+## Version Management
 
 This configuration uses **asdf** as the unified version manager for all programming languages, replacing multiple version managers (nvm, pyenv, chruby) with a single tool.
 
@@ -284,15 +238,7 @@ asdf list python
 - **Node.js**: Use `npm` or your preferred package manager
 - **Ruby**: Use `gem` and `bundle` for dependency management
 
-### Migration Notes
-
-If you previously used other version managers:
-
-- **nvm** → Remove `~/.nvm` and NVM shell integrations (already cleaned up)
-- **pyenv** → Remove `~/.pyenv` and shell integrations (already cleaned up)  
-- **chruby** → Remove chruby shell integrations (already cleaned up)
-
-## 🧠 Customization
+## Customization
 
 - **Shell**: Edit `~/.zshrc` or `~/.zprofile`
 - **Git**: Edit `~/.gitconfig` or the specific configs in development directories
@@ -300,7 +246,7 @@ If you previously used other version managers:
 - **Vim**: Edit `~/.vimrc`
 - **OS Preferences**: Add to `install.sh` (macOS section)
 
-## 👤 Maintainer
+## Maintainer
 
 | Name | GitHub | Email | Role |
 |:-----|:-------|:------|:-----|

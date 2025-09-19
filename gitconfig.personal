@@ -1,3 +1,6 @@
 [user]
   email = justin@larsen.dev
   name = Justin Larsen
+[commit]
+	gpgsign = true
+	signingkey = F55C406C0965C28A

@@ -1,3 +1,6 @@
 [user]
   email = jlarsen@traeger.com
   name = Justin Larsen
+[commit]
+	gpgsign = true
+	signingkey = C327D73A805D99BA

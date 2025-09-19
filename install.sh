@@ -2,23 +2,26 @@
 # Author: @juslarsen
 # Description: This is my Mac OS setup script. Largely inspired by/stolen from @rowofpixels.
 
-script_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+script_path=$(
+  cd "$(dirname "${BASH_SOURCE[0]}")" || exit
+  pwd -P
+)
 
 # Install homebrew if it's not already installed
-if ! command -v brew &> /dev/null
-then
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
-    # Path differs between Intel and Apple Silicon Macs
-    if [[ $(uname -m) == "arm64" ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    else
-        eval "$(/usr/local/bin/brew shellenv)"
-    fi
+if ! command -v brew &>/dev/null; then
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Path differs between Intel and Apple Silicon Macs
+  if [[ $(uname -m) == "arm64" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
 fi
 
 # Install tools from Brewfile
-brew bundle install --file=~/.dotfiles/Brewfile
+# Note: Docker Desktop may fail if not run with sudo - install manually if needed
+brew bundle --file=~/.dotfiles/Brewfile || true
 
 # Finder: show all filename extensions
 # http://www.defaults-write.com/display-the-file-extensions-in-finder/
@@ -67,37 +70,37 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
 # Restart the dock and finder to apply changes
 for app in "Dock" "Finder"; do
-  killall "${app}" > /dev/null 2>&1
+  killall "${app}" >/dev/null 2>&1
 done
 
 ### Terminal setup ###
-if [ ! -d "$HOME/.oh-my-zsh/" ] ; then
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+if [ ! -d "$HOME/.oh-my-zsh/" ]; then
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
 ### Directory Setup for Multi-Identity Commits ###
 ### Development directory ###
-if [ ! -d "$HOME/development" ] ; then
-        mkdir -p $HOME/development
+if [ ! -d "$HOME/development" ]; then
+  mkdir -p "$HOME/development"
 fi
-cp $script_path/gitconfig.development $HOME/development/.gitconfig
+cp "$script_path/gitconfig.development" "$HOME/development/.gitconfig"
 
 ### Personal development directory ###
-if [ ! -d "$HOME/development/personal" ] ; then
-        mkdir -p $HOME/development/personal
+if [ ! -d "$HOME/development/personal" ]; then
+  mkdir -p "$HOME/development/personal"
 fi
-cp $script_path/gitconfig.personal $HOME/development/personal/.gitconfig
+cp "$script_path/gitconfig.personal" "$HOME/development/personal/.gitconfig"
 
 ### Work development directory ###
-if [ ! -d "$HOME/development/work" ] ; then
-        mkdir -p $HOME/development/work
+if [ ! -d "$HOME/development/work" ]; then
+  mkdir -p "$HOME/development/work"
 fi
-cp $script_path/gitconfig.work $HOME/development/work/.gitconfig
+cp "$script_path/gitconfig.work" "$HOME/development/work/.gitconfig"
 
 ### GPG setup ###
-if ! brew list pinentry-mac &> /dev/null; then
-    echo "Installing pinentry-mac for GPG..."
-    brew install pinentry-mac
+if ! brew list pinentry-mac &>/dev/null; then
+  echo "Installing pinentry-mac for GPG..."
+  brew install pinentry-mac
 fi
 
 # Configure GPG agent
@@ -106,44 +109,53 @@ chmod 700 "$HOME/.gnupg"
 
 # Only create gpg-agent.conf if it doesn't exist
 if [ ! -f "$HOME/.gnupg/gpg-agent.conf" ]; then
-    if [[ $(uname -m) == "arm64" ]]; then
-        echo "pinentry-program /opt/homebrew/bin/pinentry-mac" > "$HOME/.gnupg/gpg-agent.conf"
-    else
-        echo "pinentry-program /usr/local/bin/pinentry-mac" > "$HOME/.gnupg/gpg-agent.conf"
-    fi
-    echo "default-cache-ttl 3600" >> "$HOME/.gnupg/gpg-agent.conf"
-    echo "max-cache-ttl 7200" >> "$HOME/.gnupg/gpg-agent.conf"
+  if [[ $(uname -m) == "arm64" ]]; then
+    echo "pinentry-program /opt/homebrew/bin/pinentry-mac" >"$HOME/.gnupg/gpg-agent.conf"
+  else
+    echo "pinentry-program /usr/local/bin/pinentry-mac" >"$HOME/.gnupg/gpg-agent.conf"
+  fi
+  echo "default-cache-ttl 3600" >>"$HOME/.gnupg/gpg-agent.conf"
+  echo "max-cache-ttl 7200" >>"$HOME/.gnupg/gpg-agent.conf"
 fi
 
 # Restart GPG agent
 gpgconf --kill gpg-agent
 
+# Run GPG setup wizard to configure signing keys
+if [ -f "$script_path/scripts/setup-gpg.sh" ]; then
+  echo "Running GPG setup wizard..."
+  "$script_path/scripts/setup-gpg.sh"
+else
+  echo "GPG setup wizard not found at $script_path/scripts/setup-gpg.sh"
+  echo "You can run it manually later to configure GPG signing keys."
+fi
+
 ### vim setup ###
 
 # If bundle directory for pathogen doesn't exist, create it
-if [ ! -d "$HOME/.vim/bundle" ] ; then
-    mkdir -p $HOME/.vim/bundle
+if [ ! -d "$HOME/.vim/bundle" ]; then
+  mkdir -p "$HOME/.vim/bundle"
 fi
 # If the pathogen directory doesn't exist, create it
-if [ ! -d "$HOME/.vim/autoload" ] ; then
-        mkdir -p $HOME/.vim/autoload
+if [ ! -d "$HOME/.vim/autoload" ]; then
+  mkdir -p "$HOME/.vim/autoload"
 fi
 # Download vim pathogen package manager.
 if [ ! -f "$HOME/.vim/autoload/pathogen.vim" ]; then
-    mkdir -p $HOME/.vim/autoload $HOME/.vim/bundle
-    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  mkdir -p "$HOME/.vim/autoload" "$HOME/.vim/bundle"
+  curl -LSso "$HOME/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
 fi
 # If vim colors directory doesn't exist, create it.
-if [ ! -d "$HOME/.vim/colors" ] ; then
-        mkdir -p $HOME/.vim/colors
+if [ ! -d "$HOME/.vim/colors" ]; then
+  mkdir -p "$HOME/.vim/colors"
 fi
 # install apprentice vim color theme
-if [ ! -f "$HOME/.vim/colors/apprentice.vim" ] ; then
-        cp $script_path/vim/colors/apprentice.vim $HOME/.vim/colors/
+if [ ! -f "$HOME/.vim/colors/apprentice.vim" ]; then
+  cp "$script_path/vim/colors/apprentice.vim" "$HOME/.vim/colors/"
 fi
 
 ### Dotfile Linking ###
-cd $script_path
+cd "$script_path" || exit
 rcup gitconfig
 rcup gitignore
 rcup zprofile
@@ -157,9 +169,12 @@ rcup tool-versions
 rcup claude
 # Link the project CLAUDE.md as user-level Claude guidelines
 if [ ! -f "$HOME/.claude/CLAUDE.md" ]; then
-    ln -s "$script_path/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+  ln -s "$script_path/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 fi
 
 echo "Installation complete! You may need to restart your terminal for all changes to take effect."
-echo "Don't forget to set up your GPG keys for signing commits following the instructions in the README."
+echo "GPG signing keys have been configured automatically for your personal and work identities."
 echo "Claude Code subagents have been installed to ~/.claude/agents/ - use '/agents' command to access them."
+echo ""
+echo "Note: If Docker Desktop failed to install, run: brew install --cask docker"
+echo "If you need to reconfigure GPG signing later, run: ~/.dotfiles/scripts/setup-gpg.sh"
