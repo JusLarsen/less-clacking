@@ -1,6 +1,3 @@
-"Allows for pathogen to auto-install any file in the bundle directory
-"requires cloning pathogen
-execute pathogen#infect()
 "Turns on syntax coloration
 syntax on
 "Turn off funky auto-indenting

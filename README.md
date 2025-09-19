@@ -10,7 +10,7 @@ Personal dotfiles for consistent macOS development setup.
 - **Development Tools**: Unified version management with asdf, modern Python tooling with uv
 - **Git Identity Management**: Separate configurations for personal and work projects
 - **macOS Preferences**: Sensible defaults for Finder, Dock, and other system preferences
-- **Editor Setup**: Vim configuration with essential settings
+- **Editor Setup**: Basic vim configuration for occasional use
 
 ## Tools & Technologies
 
@@ -69,8 +69,7 @@ The `.dotfiles` directory contains install scripts and files that will be symlin
 ├── vimrc                  # Vim editor configuration
 ├── p10k.zsh               # Powerlevel10k theme
 ├── tool-versions          # asdf version specifications
-├── hammerspoon/           # Window management scripts
-└── vim/                   # Vim plugins and settings
+└── hammerspoon/           # Window management scripts
 ```
 
 ## Installed Structure
