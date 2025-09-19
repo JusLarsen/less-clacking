@@ -1,5 +1,7 @@
 # Less Clacking
 
+[![Lint](https://github.com/JusLarsen/less-clacking/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/JusLarsen/less-clacking/actions/workflows/lint.yml)
+
 Personal dotfiles for consistent macOS development setup.
 
 ## Features
