@@ -130,30 +130,6 @@ else
   echo "You can run it manually later to configure GPG signing keys."
 fi
 
-### vim setup ###
-
-# If bundle directory for pathogen doesn't exist, create it
-if [ ! -d "$HOME/.vim/bundle" ]; then
-  mkdir -p "$HOME/.vim/bundle"
-fi
-# If the pathogen directory doesn't exist, create it
-if [ ! -d "$HOME/.vim/autoload" ]; then
-  mkdir -p "$HOME/.vim/autoload"
-fi
-# Download vim pathogen package manager.
-if [ ! -f "$HOME/.vim/autoload/pathogen.vim" ]; then
-  mkdir -p "$HOME/.vim/autoload" "$HOME/.vim/bundle"
-  curl -LSso "$HOME/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
-fi
-# If vim colors directory doesn't exist, create it.
-if [ ! -d "$HOME/.vim/colors" ]; then
-  mkdir -p "$HOME/.vim/colors"
-fi
-# install apprentice vim color theme
-if [ ! -f "$HOME/.vim/colors/apprentice.vim" ]; then
-  cp "$script_path/vim/colors/apprentice.vim" "$HOME/.vim/colors/"
-fi
-
 ### Dotfile Linking ###
 cd "$script_path" || exit
 rcup gitconfig

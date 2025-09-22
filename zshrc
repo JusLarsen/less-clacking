@@ -29,7 +29,10 @@ fi
 if [[ $IN_VSCODE -eq 0 ]]; then
   unalias grv # git plugin and grv conflict
 fi
-. $(brew --prefix asdf)/libexec/asdf.sh 
+# Load asdf version manager
+if command -v brew >/dev/null 2>&1 && [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
+  . $(brew --prefix asdf)/libexec/asdf.sh
+fi 
 
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
@@ -46,7 +49,7 @@ if [[ $IN_VSCODE -eq 0 ]]; then
 fi
 
 # pnpm
-export PNPM_HOME="/Users/jlarsen/Library/pnpm"
+export PNPM_HOME="/Users/$MY_USER/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;

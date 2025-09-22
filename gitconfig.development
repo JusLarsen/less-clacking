@@ -1,6 +1,6 @@
 [includeIf "gitdir:~/development/personal/"]
-  path = ~/development/personal/.gitconfig\
+  path = ~/development/personal/.gitconfig
 [includeIf "gitdir:~/development/work/"]
-  path = ~/development/work/.gitconfig\
+  path = ~/development/work/.gitconfig
 [commit]
   gpgsign = true
