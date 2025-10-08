@@ -19,7 +19,7 @@ Track architectural patterns, technology decisions, and system design approaches
 **Knowledge Entities**: `tech_standard`, `architecture_decision`, `design_pattern`, `system_integration`, `deployment_strategy`
 
 ## Standards Reference
-Always reference the project's CLAUDE.md file for:
+Always reference the project's GEMINI.md or CLAUDE.md file (depending on model) for:
 - **Tech Stack Standards**: Approved technologies (NextJS, Node.js, PostgreSQL, etc.)
 - **Project Structure Patterns**: Standard directory layouts and organization  
 - **Development Commands**: Established tooling and workflow commands

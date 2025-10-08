@@ -141,16 +141,20 @@ rcup hammerspoon
 rcup p10k.zsh
 rcup tool-versions
 
-### Claude Code Subagent Setup ###
+### AI Agent Setup ###
 rcup claude
-# Link the project CLAUDE.md as user-level Claude guidelines
+rcup gemini
+# Link the project AGENT_PROTOCOL.md as user-level Claude and Gemini guidelines
 if [ ! -f "$HOME/.claude/CLAUDE.md" ]; then
-  ln -s "$script_path/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+  ln -s "$script_path/AGENT_PROTOCOL.md" "$HOME/.claude/CLAUDE.md"
+fi
+if [ ! -f "$HOME/.gemini/GEMINI.md" ]; then
+  ln -s "$script_path/AGENT_PROTOCOL.md" "$HOME/.gemini/GEMINI.md"
 fi
 
 echo "Installation complete! You may need to restart your terminal for all changes to take effect."
 echo "GPG signing keys have been configured automatically for your personal and work identities."
-echo "Claude Code subagents have been installed to ~/.claude/agents/ - use '/agents' command to access them."
+echo "Claude and Gemini agents have been installed to ~/.claude/agents/ and ~/.gemini/agents/ - use '/agents' command to access them."
 echo ""
 echo "Note: If Docker Desktop failed to install, run: brew install --cask docker"
 echo "If you need to reconfigure GPG signing later, run: ~/.dotfiles/scripts/setup-gpg.sh"
