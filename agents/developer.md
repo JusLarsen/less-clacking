@@ -19,7 +19,7 @@ Maintain implementation patterns, integration approaches, and proven development
 **Knowledge Entities**: `implementation_pattern`, `integration_approach`, `development_gotcha`, `optimization_technique`, `refactoring_strategy`
 
 ## Standards Reference
-Always reference the project's CLAUDE.md file for:
+Always reference the project's GEMINI.md or CLAUDE.md file (depending on model) for:
 - **Development Commands**: npm run dev, npm test, npm run lint, npm run typecheck
 - **Code Style Standards**: Clean Code principles, DRY, simplicity over complexity
 - **Tech Stack Implementation**: NextJS patterns, Node.js/TypeScript, GraphQL with Apollo

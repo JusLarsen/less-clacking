@@ -18,7 +18,7 @@ Maintain coding standards, review patterns, and maintainability guidelines.
 **Knowledge Entities**: `code_standard`, `review_pattern`, `maintainability_guideline`, `technical_debt_indicator`
 
 ## Standards Reference
-Always reference the project's CLAUDE.md file for:
+Always reference the project's GEMINI.md or CLAUDE.md file (depending on model) for:
 - **Code Style Standards**: Naming conventions (kebab-case, snake_case), Clean Code principles
 - **TypeScript Standards**: Strong typing, functional components, named exports
 - **Python Standards**: Type hints, Black formatting, pandas usage

@@ -1,6 +1,6 @@
-# Claude Guidelines for Personal Development Projects
+# AI Agent Protocol for Personal Development Projects
 
-> **Subagent Integration**: These standards are referenced by specialized subagents:
+> **Subagent Integration**: These standards are referenced by specialized AI agents:
 >
 > - `software-architect`: Tech stacks, project structure, deployment strategy, infrastructure decisions
 > - `code-reviewer`: Code style, error handling, naming conventions, quality standards
@@ -84,26 +84,6 @@ Use specialized subagents for focused work that preserves context and applies do
 - **Test strategy and comprehensive testing** → `/agents qa-specialist`
 - **Technology decisions and architecture** → `/agents software-architect`
 
-### Typical Workflows
-
-**Bug Investigation:**
-
-```
-User reports bug → /agents investigator → /agents developer → /agents security-engineer (if needed) → /agents code-reviewer → /agents qa-specialist
-```
-
-**Feature Development:**
-
-```
-Feature request → /agents software-architect → /agents developer → /agents security-engineer → /agents code-reviewer → /agents qa-specialist
-```
-
-**Code Quality Improvement:**
-
-```
-Quality concerns → /agents investigator → /agents software-architect → /agents developer → /agents code-reviewer → /agents qa-specialist
-```
-
 ### Agent Specializations
 
 - **investigator**: Deep codebase analysis, bug hunting, performance bottleneck identification, technical research
@@ -112,5 +92,3 @@ Quality concerns → /agents investigator → /agents software-architect → /ag
 - **code-reviewer**: Code quality, maintainability, standards compliance, documentation review
 - **qa-specialist**: Test writing, edge case discovery, comprehensive quality assurance
 - **software-architect**: Technology decisions, system design, architectural patterns, deployment strategy
-
-Each agent maintains specialized knowledge entities and builds expertise over time through persistent memory.

@@ -9,6 +9,7 @@ Personal dotfiles for consistent macOS development setup.
 - **Terminal Environment**: Zsh with Oh-My-Zsh and Powerlevel10k
 - **Development Tools**: Unified version management with asdf, modern Python tooling with uv
 - **Git Identity Management**: Separate configurations for personal and work projects
+- **AI Agent Integration**: Multi-vendor agent support for Claude and Gemini, with a shared agent protocol.
 - **macOS Preferences**: Sensible defaults for Finder, Dock, and other system preferences
 - **Editor Setup**: Basic vim configuration for occasional use
 
@@ -42,21 +43,24 @@ The `.dotfiles` directory contains install scripts and files that will be symlin
 ```
 .dotfiles/
 ├── README.md              # This documentation
-├── CLAUDE.md              # AI assistant guidelines
+├── AGENT_PROTOCOL.md      # AI assistant guidelines
 ├── Makefile               # Linting and formatting commands
 ├── install.sh             # Main installation script
 ├── Brewfile               # Homebrew dependencies
 ├── .github/
 │   └── workflows/
 │       └── lint.yml       # GitHub Actions linting workflow
+├── agents/
+│   ├── code-reviewer.md
+│   ├── developer.md
+│   ├── investigator.md
+│   ├── qa-specialist.md
+│   ├── security-engineer.md
+│   └── software-architect.md
 ├── claude/
-│   └── agents/            # Claude agent configurations
-│       ├── code-reviewer.md
-│       ├── developer.md
-│       ├── investigator.md
-│       ├── qa-specialist.md
-│       ├── security-engineer.md
-│       └── software-architect.md
+│   └── agents/            # Symlink to ../agents
+├── gemini/
+│   └── agents/            # Symlink to ../agents
 ├── scripts/
 │   └── setup-gpg.sh       # GPG configuration automation
 ├── gitconfig              # Main git configuration
@@ -80,6 +84,9 @@ After installation, your development environment uses directory-based git identi
 ~/
 ├── .dotfiles/             # This repository (cloned)
 ├── .claude/               # Claude agent configurations
+│   └── CLAUDE.md          # Symlinked from .dotfiles/AGENT_PROTOCOL.md
+├── .gemini/               # Gemini agent configurations
+│   └── GEMINI.md          # Symlinked from .dotfiles/AGENT_PROTOCOL.md
 ├── .gitconfig             # Symlinked from .dotfiles/gitconfig
 ├── .zshrc                 # Symlinked from .dotfiles/zshrc
 ├── .vimrc                 # Symlinked from .dotfiles/vimrc

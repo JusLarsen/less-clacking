@@ -57,7 +57,7 @@ get_gpg_keys() {
 
   local current_key=""
   while IFS= read -r line; do
-    if echo "$line" | grep -q "^sec.*rsa.*/"; then
+    if echo "$line" | grep -q "^sec.*\(rsa\|ed25519\).*/"; then
       current_key=$(echo "$line" | sed -n 's/.*\/\([A-F0-9]\{16\}\).*/\1/p')
     elif echo "$line" | grep -q "uid.*<.*@.*>" && [[ -n "$current_key" ]]; then
       local email
