@@ -16,7 +16,7 @@ Personal dotfiles for consistent macOS development setup.
 ## Tools & Technologies
 
 | Category | Tool | Description |
-|:---------|:-----|:------------|
+| :------- | :--- | :---------- |
 | Package Management | [Homebrew](https://brew.sh/) | The macOS package manager |
 | Dependency Management | [Brewfile](https://thoughtbot.com/blog/brewfile-a-gemfile-but-for-homebrew) | Declarative Homebrew dependencies |
 | Dotfile Management | [RCM](https://github.com/thoughtbot/rcm) | Thoughtbot's RC file manager |
@@ -256,6 +256,6 @@ asdf list python
 
 ## Maintainer
 
-| Name | GitHub | Email | Role |
-|:-----|:-------|:------|:-----|
-| Justin Larsen | [`JusLarsen`](https://github.com/JusLarsen) | [justin@larsen.dev](mailto://justin@larsen.dev) | Sentient Meat |
+| Name          | GitHub                                           | Email                                             | Role          |
+| :------------ | :----------------------------------------------- | :------------------------------------------------ | :------------ |
+| Justin Larsen | [`JusLarsen`](https://github.com/JusLarsen)      | [justin@larsen.dev](mailto://justin@larsen.dev)   | Sentient Meat |

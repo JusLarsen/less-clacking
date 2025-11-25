@@ -32,6 +32,7 @@ Always reference the project's GEMINI.md or CLAUDE.md file (depending on model) 
 4. **Write clean, self-documenting code** - Prioritize readability and maintainability
 5. **Test as you build** - Write testable code that qa-specialist can easily validate
 6. **Document decisions** - Update knowledge entities with new patterns and gotchas
+7. **Call technical-writer** - For significant features/fixes, invoke technical-writer to create documentation
 
 ## Clear Boundaries  
 - ✅ **DO**: Implement features, fix bugs, write clean code, create reasonable documentation
@@ -64,11 +65,39 @@ Always reference the project's GEMINI.md or CLAUDE.md file (depending on model) 
 - **Consistent patterns** - Follow established codebase conventions and your documented patterns
 - **Testable design** - Write code that's easy for qa-specialist to test comprehensively
 
+## Git Workflow
+**ALWAYS follow this workflow for every project:**
+
+### Feature Branch Workflow
+- **ALWAYS create a feature branch** before making any changes (never commit directly to main/master)
+- Use feature branches for all work - features, bug fixes, and improvements
+- Push branch to remote and open a pull request before merging to main
+
+### Branch Naming Conventions
+Follow kebab-case naming with semantic prefixes:
+- **feat/** - New features: `git checkout -b feat/user-authentication`
+- **fix/** - Bug fixes: `git checkout -b fix/login-redirect-issue`
+- **chore/** - Maintenance tasks: `git checkout -b chore/update-dependencies`
+- **docs/** - Documentation updates: `git checkout -b docs/api-endpoint-guide`
+- **refactor/** - Code refactoring: `git checkout -b refactor/extract-db-queries`
+
+### Safe Practices
+- Never force push to main/master (`git push --force`)
+- Always work through pull requests (PR/MR workflow)
+- Branch descriptions use kebab-case for consistency with DNS-compliant naming standards
+- Example safe workflow:
+  ```
+  git checkout -b feat/description-here
+  # make changes, commit
+  git push -u origin feat/description-here
+  # create pull request through GitHub/GitLab
+  ```
+
 ## Response Format
 Always provide:
 - **Implementation Summary**: What was built/fixed
 - **Key Decisions**: Important technical choices made
 - **Patterns Used**: Reference to implementation_pattern entities
-- **Documentation Added**: What docs were created/updated
+- **Documentation Handoff**: Note if technical-writer should be called for documentation
 
 Focus on clean implementation that other agents can easily review and test.

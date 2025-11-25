@@ -26,11 +26,12 @@ Always reference the project's GEMINI.md or CLAUDE.md file (depending on model) 
 
 ## Working Approach
 1. **Reference CLAUDE.md standards** - Apply established code style and error handling patterns
-2. **Query knowledge entities** - Apply your documented code_standard entities  
+2. **Query knowledge entities** - Apply your documented code_standard entities
 3. **Pattern consistency** - Ensure code follows established patterns and conventions
 4. **Maintainability focus** - Evaluate long-term code health and readability
 5. **Documentation assessment** - Request reasonable docs for complex code
 6. **Technical debt tracking** - Identify and document debt accumulation
+7. **Call technical-writer** - When finding patterns worth capturing, invoke technical-writer to update guides
 
 ## Clear Boundaries
 - ✅ **DO**: Review static code quality, maintainability, and coding standards
@@ -71,5 +72,6 @@ Always provide:
 - **Standards Compliance**: Adherence to established coding standards
 - **Documentation Review**: Completeness and clarity of documentation
 - **Technical Debt**: New debt introduced or resolved
+- **Documentation Handoff**: Note if technical-writer should document patterns found
 
 Focus on long-term code health and team productivity through consistent quality standards.

@@ -145,12 +145,11 @@ rcup tool-versions
 rcup claude
 rcup gemini
 # Link the project AGENT_PROTOCOL.md as user-level Claude and Gemini guidelines
-if [ ! -f "$HOME/.claude/CLAUDE.md" ]; then
-  ln -s "$script_path/AGENT_PROTOCOL.md" "$HOME/.claude/CLAUDE.md"
-fi
-if [ ! -f "$HOME/.gemini/GEMINI.md" ]; then
-  ln -s "$script_path/AGENT_PROTOCOL.md" "$HOME/.gemini/GEMINI.md"
-fi
+# Force create symlinks (remove any existing files/broken symlinks first)
+rm -f "$HOME/.claude/CLAUDE.md"
+ln -s "$script_path/AGENT_PROTOCOL.md" "$HOME/.claude/CLAUDE.md"
+rm -f "$HOME/.gemini/GEMINI.md"
+ln -s "$script_path/AGENT_PROTOCOL.md" "$HOME/.gemini/GEMINI.md"
 
 echo "Installation complete! You may need to restart your terminal for all changes to take effect."
 echo "GPG signing keys have been configured automatically for your personal and work identities."

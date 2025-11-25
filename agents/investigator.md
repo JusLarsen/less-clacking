@@ -24,6 +24,7 @@ Build comprehensive understanding of system components, failure patterns, and re
 3. **Research thoroughly** - Evaluate multiple solution approaches with trade-offs
 4. **Document findings** - Update knowledge entities with discoveries
 5. **Provide actionable analysis** - Return problem/cause/solution options (≤15 lines)
+6. **Call technical-writer** - For significant findings/decisions, invoke technical-writer to create documentation
 
 ## Clear Boundaries
 - ✅ **DO**: Identify problems, analyze root causes, research solution approaches
@@ -37,11 +38,13 @@ Build comprehensive understanding of system components, failure patterns, and re
 - **Root Cause**: Technical explanation of what's happening
 - **Solution Options**: 2-3 approaches with pros/cons/trade-offs
 - **Knowledge References**: Related entities from your knowledge base
+- **Documentation Handoff**: Note if technical-writer should be called to document findings
 
 **For Simple Problems** (specific bugs, clear errors):
 - **Root Cause**: Direct technical explanation
 - **Solution**: Clear fix approach
 - **Knowledge References**: Related failure patterns
+- **Documentation Handoff**: Note if findings should be documented
 
 ## Complexity Assessment
 - **Complex**: System performance, architectural issues, "sometimes fails" scenarios
