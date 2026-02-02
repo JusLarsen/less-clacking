@@ -130,6 +130,12 @@ else
   echo "You can run it manually later to configure GPG signing keys."
 fi
 
+### Claude Code CLI ###
+if ! command -v claude &>/dev/null; then
+  echo "Installing Claude Code CLI..."
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+
 ### Dotfile Linking ###
 cd "$script_path" || exit
 rcup gitconfig
