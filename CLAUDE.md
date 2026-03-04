@@ -22,7 +22,7 @@ Shell scripts use 2-space indentation with case indent (`shfmt -i 2 -ci`). Markd
 
 ### Installation Flow
 
-`install.sh` is the entry point: Homebrew -> Brewfile packages -> macOS defaults -> Oh-My-Zsh -> development directory structure with per-directory git identity configs -> GPG setup -> Claude Code CLI -> rcup symlinks -> AI agent symlinks.
+`install.sh` is the entry point: Homebrew -> Brewfile packages -> macOS defaults -> Oh-My-Zsh -> development directory structure with per-directory git identity configs (symlinked via `ln -sf`) -> GPG setup -> Claude Code CLI -> rcup symlinks -> Starship config symlinked via `ln -sf` to `~/.config/starship.toml` -> AI agent symlinks.
 
 Dotfiles are symlinked via `rcup` (from rcm package). AI agent protocol files are symlinked from `AGENT_PROTOCOL.md` to both `~/.claude/CLAUDE.md` and `~/.gemini/GEMINI.md`.
 
@@ -40,7 +40,7 @@ Directory-based git identity selection via includeIf in `.gitconfig`:
 
 ### Shell Environment
 
-`zshrc` detects VSCode terminal (`IN_VSCODE` flag) and conditionally loads Oh-My-Zsh, Powerlevel10k theme, and p10k config only outside VSCode. Plugins: asdf, autojump, git. `zprofile` contains aliases and path setup.
+`zshrc` detects VSCode terminal (`IN_VSCODE` flag) and conditionally loads Oh-My-Zsh only outside VSCode. Plugins: asdf, git. Zoxide and Starship are initialized via `eval` with `command -v` guards. `zprofile` contains aliases and path setup.
 
 ## Key Files
 
@@ -50,9 +50,14 @@ Directory-based git identity selection via includeIf in `.gitconfig`:
 | `Brewfile` | Declarative Homebrew dependencies |
 | `AGENT_PROTOCOL.md` | AI agent system spec (symlinked to ~/.claude/CLAUDE.md and ~/.gemini/GEMINI.md) |
 | `agents/*.md` | Individual agent definitions |
-| `tool-versions` | asdf runtime versions (node 22.14.0, python 3.13.1, ruby 3.3.6) |
+| `tool-versions` | mise/asdf runtime versions (node 22.14.0, python 3.13.1, ruby 3.3.6) |
+| `config/starship.toml` | Starship prompt configuration |
 | `scripts/setup-gpg.sh` | GPG key setup wizard |
 | `.gitconfig` | Main git config with directory-based identity includes |
+
+## Documentation Rules
+
+When modifying code that makes existing documentation outdated (README.md, CLAUDE.md, etc.), update those docs in the same change. Keeping existing docs accurate is not "creating documentation" — it's part of the implementation.
 
 ## CI
 
