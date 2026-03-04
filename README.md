@@ -6,7 +6,7 @@ Personal dotfiles for consistent macOS development setup.
 
 ## Features
 
-- **Terminal Environment**: Zsh with Oh-My-Zsh and Starship prompt
+- **Terminal Environment**: Zsh with Oh-My-Zsh and Powerlevel10k prompt
 - **Development Tools**: Unified version management with asdf, modern Python tooling with uv, fast directory jumping with zoxide
 - **Git Identity Management**: Separate configurations for personal and work projects
 - **AI Agent Integration**: Multi-vendor agent support for Claude and Gemini, with a shared agent protocol.
@@ -22,7 +22,7 @@ Personal dotfiles for consistent macOS development setup.
 | Dotfile Management | [RCM](https://github.com/thoughtbot/rcm) | Thoughtbot's RC file manager |
 | Shell | [ZSH](http://www.zsh.org/) | Modern shell with extensive features |
 | Shell Framework | [Oh-My-Zsh](https://ohmyz.sh/) | Framework for managing Zsh configuration |
-| Shell Prompt | [Starship](https://starship.rs/) | Fast, cross-shell prompt with minimal config |
+| Shell Prompt | [Powerlevel10k](https://github.com/romkatv/powerlevel10k) | Feature-rich Zsh prompt with powerline segments |
 | Directory Jumping | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter cd command that learns your habits |
 | Window Management | [Hammerspoon](https://www.hammerspoon.org/) | Powerful automation tool for macOS |
 | Version Management | [asdf](https://asdf-vm.com/) | Unified runtime version manager for all languages |
@@ -73,8 +73,7 @@ The `.dotfiles` directory contains install scripts and files that will be symlin
 ├── zshrc                  # Zsh shell configuration
 ├── zprofile               # Zsh profile settings
 ├── vimrc                  # Vim editor configuration
-├── config/
-│   └── starship.toml      # Starship prompt configuration
+├── p10k.zsh               # Powerlevel10k prompt configuration
 ├── tool-versions          # asdf version specifications
 └── hammerspoon/           # Window management scripts
 ```
@@ -90,8 +89,7 @@ After installation, your development environment uses directory-based git identi
 │   └── CLAUDE.md          # Symlinked from .dotfiles/AGENT_PROTOCOL.md
 ├── .gemini/               # Gemini agent configurations
 │   └── GEMINI.md          # Symlinked from .dotfiles/AGENT_PROTOCOL.md
-├── .config/
-│   └── starship.toml      # Symlinked from .dotfiles/config/starship.toml
+├── .p10k.zsh              # Symlinked from .dotfiles/p10k.zsh
 ├── .gitconfig             # Symlinked from .dotfiles/gitconfig
 ├── .zshrc                 # Symlinked from .dotfiles/zshrc
 ├── .vimrc                 # Symlinked from .dotfiles/vimrc

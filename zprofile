@@ -52,7 +52,11 @@ export CLICOLOR=1
 # Use grep color without deprecated GREP_OPTIONS
 alias grep='grep --color=auto'
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ $(uname -m) == "arm64" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 
 # Configure GPG to accept passphrase from terminal
