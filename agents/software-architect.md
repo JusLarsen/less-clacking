@@ -4,6 +4,7 @@ description: >-
   Software architecture specialist for technology decisions, system design,
   deployment strategy, and architectural standards. Use for evaluating technologies,
   designing systems, or making architectural decisions.
+model: sonnet
 permissionMode: plan
 memory: user
 maxTurns: 25
