@@ -22,7 +22,7 @@ Shell scripts use 2-space indentation with case indent (`shfmt -i 2 -ci`). Markd
 
 ### Installation Flow
 
-`install.sh` is the entry point: Homebrew -> Brewfile packages -> macOS defaults -> Oh-My-Zsh -> development directory structure with per-directory git identity configs (symlinked via `ln -sf`) -> GPG setup -> Claude Code CLI -> rcup symlinks -> Starship config symlinked via `ln -sf` to `~/.config/starship.toml` -> AI agent symlinks.
+`install.sh` is the entry point: Homebrew -> Brewfile packages -> macOS defaults -> Oh-My-Zsh -> development directory structure with per-directory git identity configs (symlinked via `ln -sf`) -> GPG setup -> Claude Code CLI -> rcup symlinks (including p10k.zsh) -> AI agent symlinks.
 
 Dotfiles are symlinked via `rcup` (from rcm package). AI agent protocol files are symlinked from `AGENT_PROTOCOL.md` to both `~/.claude/CLAUDE.md` and `~/.gemini/GEMINI.md`.
 
@@ -40,7 +40,7 @@ Directory-based git identity selection via includeIf in `.gitconfig`:
 
 ### Shell Environment
 
-`zshrc` detects VSCode terminal (`IN_VSCODE` flag) and conditionally loads Oh-My-Zsh only outside VSCode. Plugins: asdf, git. Zoxide and Starship are initialized via `eval` with `command -v` guards. `zprofile` contains aliases and path setup.
+`zshrc` detects VSCode terminal (`IN_VSCODE` flag) and conditionally loads Oh-My-Zsh only outside VSCode. Plugins: asdf, git. Powerlevel10k is sourced via `brew --prefix` with VSCode and `command -v brew` guards; p10k instant prompt is at the top of zshrc before any output. Zoxide is initialized via `eval` with `command -v` guard. `zprofile` contains aliases and path setup.
 
 ## Key Files
 
@@ -51,7 +51,7 @@ Directory-based git identity selection via includeIf in `.gitconfig`:
 | `AGENT_PROTOCOL.md` | AI agent system spec (symlinked to ~/.claude/CLAUDE.md and ~/.gemini/GEMINI.md) |
 | `agents/*.md` | Individual agent definitions |
 | `tool-versions` | mise/asdf runtime versions (node 22.14.0, python 3.13.1, ruby 3.3.6) |
-| `config/starship.toml` | Starship prompt configuration |
+| `p10k.zsh` | Powerlevel10k prompt configuration |
 | `scripts/setup-gpg.sh` | GPG key setup wizard |
 | `.gitconfig` | Main git config with directory-based identity includes |
 

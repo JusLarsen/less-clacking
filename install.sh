@@ -141,24 +141,24 @@ rcup vimrc
 rcup zshrc
 rcup hammerspoon
 rcup tool-versions
+rcup p10k.zsh
 
-### Starship config ###
-mkdir -p "$HOME/.config"
-ln -sf "$script_path/config/starship.toml" "$HOME/.config/starship.toml"
+### Cleanup old Starship config symlink if present ###
+rm -f "$HOME/.config/starship.toml"
 
 ### AI Agent Setup ###
 rcup claude
 rcup gemini
 # Link the project AGENT_PROTOCOL.md as user-level Claude and Gemini guidelines
 # Force create symlinks (remove any existing files/broken symlinks first)
-rm -f "$HOME/.claude/CLAUDE.md"
-ln -s "$script_path/AGENT_PROTOCOL.md" "$HOME/.claude/CLAUDE.md"
-rm -f "$HOME/.gemini/GEMINI.md"
-ln -s "$script_path/AGENT_PROTOCOL.md" "$HOME/.gemini/GEMINI.md"
+mkdir -p "$HOME/.claude"
+ln -sf "$script_path/AGENT_PROTOCOL.md" "$HOME/.claude/CLAUDE.md"
+mkdir -p "$HOME/.gemini"
+ln -sf "$script_path/AGENT_PROTOCOL.md" "$HOME/.gemini/GEMINI.md"
 
 echo "Installation complete! You may need to restart your terminal for all changes to take effect."
 echo "GPG signing keys have been configured automatically for your personal and work identities."
 echo "Claude and Gemini agents have been installed to ~/.claude/agents/ and ~/.gemini/agents/ - use '/agents' command to access them."
 echo ""
-echo "Note: If Docker Desktop failed to install, run: brew install --cask docker"
+echo "Note: If Docker Desktop failed to install, run: brew install --cask docker-desktop"
 echo "If you need to reconfigure GPG signing later, run: ~/.dotfiles/scripts/setup-gpg.sh"

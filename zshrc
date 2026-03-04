@@ -1,3 +1,8 @@
+# Enable Powerlevel10k instant prompt. Must be at the top before any output-generating code.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Determine if we're in vscode to protect our precious LLM friends from our human friendly terminal
 export IN_VSCODE=0
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
@@ -27,6 +32,13 @@ command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
+# Load powerlevel10k when not in VSCode
+if [[ $IN_VSCODE -eq 0 ]] && command -v brew &>/dev/null; then
+  source "$(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme"
+  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
+
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
@@ -35,5 +47,3 @@ case ":$PATH:" in
 esac
 # pnpm end
 export PATH="$HOME/.local/bin:$PATH"
-
-command -v starship &>/dev/null && eval "$(starship init zsh)"
