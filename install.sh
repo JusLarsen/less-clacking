@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 # Author: @juslarsen
 # Description: This is my Mac OS setup script. Largely inspired by/stolen from @rowofpixels.
 
@@ -21,7 +22,7 @@ fi
 
 # Install tools from Brewfile
 # Note: Docker Desktop may fail if not run with sudo - install manually if needed
-brew bundle --file=~/.dotfiles/Brewfile || true
+brew bundle --file="$script_path/Brewfile" || true
 
 # Finder: show all filename extensions
 # http://www.defaults-write.com/display-the-file-extensions-in-finder/
@@ -70,7 +71,7 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
 # Restart the dock and finder to apply changes
 for app in "Dock" "Finder"; do
-  killall "${app}" >/dev/null 2>&1
+  killall "${app}" >/dev/null 2>&1 || true
 done
 
 ### Terminal setup ###
@@ -83,26 +84,21 @@ fi
 if [ ! -d "$HOME/development" ]; then
   mkdir -p "$HOME/development"
 fi
-cp "$script_path/gitconfig.development" "$HOME/development/.gitconfig"
+ln -sf "$script_path/gitconfig.development" "$HOME/development/.gitconfig"
 
 ### Personal development directory ###
 if [ ! -d "$HOME/development/personal" ]; then
   mkdir -p "$HOME/development/personal"
 fi
-cp "$script_path/gitconfig.personal" "$HOME/development/personal/.gitconfig"
+ln -sf "$script_path/gitconfig.personal" "$HOME/development/personal/.gitconfig"
 
 ### Work development directory ###
 if [ ! -d "$HOME/development/work" ]; then
   mkdir -p "$HOME/development/work"
 fi
-cp "$script_path/gitconfig.work" "$HOME/development/work/.gitconfig"
+ln -sf "$script_path/gitconfig.work" "$HOME/development/work/.gitconfig"
 
 ### GPG setup ###
-if ! brew list pinentry-mac &>/dev/null; then
-  echo "Installing pinentry-mac for GPG..."
-  brew install pinentry-mac
-fi
-
 # Configure GPG agent
 mkdir -p "$HOME/.gnupg"
 chmod 700 "$HOME/.gnupg"
@@ -119,12 +115,12 @@ if [ ! -f "$HOME/.gnupg/gpg-agent.conf" ]; then
 fi
 
 # Restart GPG agent
-gpgconf --kill gpg-agent
+gpgconf --kill gpg-agent || true
 
 # Run GPG setup wizard to configure signing keys
 if [ -f "$script_path/scripts/setup-gpg.sh" ]; then
   echo "Running GPG setup wizard..."
-  "$script_path/scripts/setup-gpg.sh"
+  "$script_path/scripts/setup-gpg.sh" || true
 else
   echo "GPG setup wizard not found at $script_path/scripts/setup-gpg.sh"
   echo "You can run it manually later to configure GPG signing keys."
@@ -144,8 +140,11 @@ rcup zprofile
 rcup vimrc
 rcup zshrc
 rcup hammerspoon
-rcup p10k.zsh
 rcup tool-versions
+
+### Starship config ###
+mkdir -p "$HOME/.config"
+ln -sf "$script_path/config/starship.toml" "$HOME/.config/starship.toml"
 
 ### AI Agent Setup ###
 rcup claude

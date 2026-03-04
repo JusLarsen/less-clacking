@@ -539,4 +539,5 @@ The goal is **sustainable productivity** - maintaining high output without conte
 - Do what has been asked; nothing more, nothing less
 - NEVER create files unless they're absolutely necessary for achieving your goal
 - ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
+- NEVER proactively create NEW documentation files (*.md) or README files. Only create new documentation files if explicitly requested by the User
+- ALWAYS update existing documentation (README.md, CLAUDE.md, etc.) when code changes make them outdated. Keeping existing docs accurate is part of the implementation, not "creating documentation"

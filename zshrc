@@ -6,53 +6,34 @@ if [[ "$TERM_PROGRAM" == "vscode" ]]; then
 fi
 
 # load zsh
-export MY_USER=$(whoami)
-export ZSH="/Users/$MY_USER/.oh-my-zsh"
-
-# Enable Powerlevel10k instant prompt when not in VSCode
-if [[ $IN_VSCODE -eq 0 ]] && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+export ZSH="$HOME/.oh-my-zsh"
 
 # load plugins
-  plugins=(
-    asdf
-    autojump
-    git
-  )
-  
+plugins=(
+  asdf
+  git
+)
+
 if [[ $IN_VSCODE -eq 0 ]]; then
-  source $ZSH/oh-my-zsh.sh
+  source "$ZSH/oh-my-zsh.sh"
 fi
 
 # Aliases
 if [[ $IN_VSCODE -eq 0 ]]; then
   unalias grv # git plugin and grv conflict
 fi
-# Load asdf version manager
-if command -v brew >/dev/null 2>&1 && [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
-  . $(brew --prefix asdf)/libexec/asdf.sh
-fi 
+
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
-
-# Load powerlevel10k when not in VSCode
-if [[ $IN_VSCODE -eq 0 ]]; then
-  source $(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme
-fi
-
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-if [[ $IN_VSCODE -eq 0 ]]; then
-  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-fi
-
 # pnpm
-export PNPM_HOME="/Users/$MY_USER/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 export PATH="$HOME/.local/bin:$PATH"
+
+command -v starship &>/dev/null && eval "$(starship init zsh)"
